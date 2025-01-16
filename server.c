@@ -1,26 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   server.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: zouazrou <zouazrou@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/16 17:28:42 by zouazrou          #+#    #+#             */
+/*   Updated: 2025/01/16 20:50:29 by zouazrou         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minitalk.h"
+#include <string.h>
 
-
-typedef	struct byte
+typedef struct byte
 {
 	int	array[8];
 	int	index;
-}byte_t;
+}		t_byte;
 
-byte_t byte;
+t_byte	g_byte;
 
-double ft_pow(double base, int exponent) {
-    double result = 1.0;
-
-    if (exponent < 0) {
-        base = 1 / base;
-        exponent = -exponent;
-    }
-    for (int i = 0; i < exponent; i++) {
-        result *= base;
-    }
-    return result;
-}
 void	print_byte(void)
 {
 	int	dec;
@@ -30,53 +30,55 @@ void	print_byte(void)
 	i = 7;
 	while (i > -1)
 	{
-		if (byte.array[i] == 1)
+		if (g_byte.array[i] == 1)
 			dec += ft_pow(2, 7 - i);
 		i--;
 	}
 	if (!dec)
 	{
-		printf("\n");
+		ft_putchar_fd('\n', 1);
 	}
-	printf("%c", (char)dec);
+	ft_putchar_fd(dec, 1);
 }
+
 void	initialization(int bit)
 {
-	byte.array[byte.index] = bit;
-	byte.index--;
+	g_byte.array[g_byte.index] = bit;
+	g_byte.index--;
+	if (g_byte.index == -1)
+	{
+		print_byte();
+		g_byte.index = 7;
+	}
 }
-void	handle_1(int sig)
+
+void	handler(int sig)
 {
-	(void)sig;
-	initialization(0);
+	if (sig == SIGUSR1)
+		initialization(0);
+	else if (sig == SIGUSR2)
+		initialization(1);
 }
-void	handle_2(int sig)
-{
-	(void)sig;
-	initialization(1);
-}
+
 int	main(void)
 {
-	struct sigaction act1;
-	struct sigaction act2;
+	struct sigaction	act;
 
-	act1.sa_handler = handle_1;
-	act2.sa_handler = handle_2;
-	act1.sa_flags = 0;
-	act2.sa_flags = 0;
-	sigaction(SIGUSR1, &act1, NULL);
-	sigaction(SIGUSR2, &act2, NULL);
-	printf("PID : %d\n", getpid());
-	printf("-----------------------------\n");
-	byte.index = 7;
+	act.sa_handler = handler;
+	act.sa_flags = 0;
+	if (sigaction(SIGUSR1, &act, NULL) == -1 || sigaction(SIGUSR2, &act,
+			NULL) == -1)
+		exit((ft_putstr_fd("error : sigaction\n", 1), 1));
+	ft_putstr_fd("----------------------------\n", 1);
+	ft_putstr_fd("---->|PID	:", 1);
+	ft_putnbr_fd(getpid(), 1);
+	ft_putstr_fd("|<----\n", 1);
+	ft_putstr_fd("----------------------------\n", 1);
+	g_byte.index = 7;
 	while (1)
 	{
 		pause();
-		if (byte.index == -1)
-		{
-			print_byte();
-			byte.index = 7;
-		}
 	}
 	return (0);
 }
+// -Wall -Wextra -Werror
