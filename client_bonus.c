@@ -6,7 +6,7 @@
 /*   By: zouazrou <zouazrou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 17:28:08 by zouazrou          #+#    #+#             */
-/*   Updated: 2025/02/06 09:44:54 by zouazrou         ###   ########.fr       */
+/*   Updated: 2025/02/06 11:44:41 by zouazrou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	check_args(int ac, char **av)
 	}
 }
 
-void	send_t_server(int pid, char c)
+void	send_t_server(pid_t pid, char c)
 {
 	int	num_of_byte;
 
@@ -60,14 +60,39 @@ void	send_t_server(int pid, char c)
 	}
 }
 
+int	ft_atoi(const char *nptr)
+{
+	int	i;
+	int	nb;
+	int	sign;
+
+	i = 0;
+	nb = 0;
+	sign = 1;
+	while ((nptr[i] >= 9 && nptr[i] <= 13) || (nptr[i] == 32))
+		i++;
+	if (nptr[i] == '-' || nptr[i] == '+')
+	{
+		if (nptr[i] == '-')
+			sign = -1;
+		i++;
+	}
+	while (nptr[i] && (nptr[i] >= '0' && nptr[i] <= '9'))
+	{
+		nb = nb * 10 + nptr[i] - '0';
+		i++;
+	}
+	return (nb * sign);
+}
+
 int	main(int ac, char **av)
 {
-	int		pid;
-	char	*msg;
+	pid_t		pid;
+	char		*msg;
 
 	check_args(ac, av);
 	msg = av[2];
-	pid = atoi(av[1]);
+	pid = ft_atoi(av[1]);
 	if (kill(pid, 0) == -1)
 		exit((ft_putstr_fd("error : PID invalid\n", 1), 1));
 	signal(SIGUSR1, ready);
