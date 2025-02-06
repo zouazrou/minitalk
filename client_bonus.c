@@ -6,7 +6,7 @@
 /*   By: zouazrou <zouazrou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/16 17:28:08 by zouazrou          #+#    #+#             */
-/*   Updated: 2025/02/05 11:56:30 by zouazrou         ###   ########.fr       */
+/*   Updated: 2025/02/06 09:44:54 by zouazrou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	ready(int sig)
 	else if (sig == SIGUSR2)
 		exit((ft_putstr_fd("Message received \n", 1), 0));
 }
-// void	received(void)
 
 void	check_args(int ac, char **av)
 {

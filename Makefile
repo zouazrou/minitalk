@@ -6,12 +6,12 @@
 #    By: zouazrou <zouazrou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/18 09:45:34 by zouazrou          #+#    #+#              #
-#    Updated: 2025/01/18 11:49:30 by zouazrou         ###   ########.fr        #
+#    Updated: 2025/02/06 09:46:53 by zouazrou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
-FLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 
 # EXE
 CLIENT = client
@@ -60,11 +60,6 @@ $(B_CLIENT) : $(BO_CLIENT)
 
 $(B_SERVER) : $(BO_SERVER)
 	$(CC) $(FLAGS) $(BO_SERVER) -o $(B_SERVER)
-
-# -------------------------------------------------------------------
-# Compile Object Files
-%.o: %.c
-	$(CC) $(FLAGS) -c $< -o $@
 
 # --------------------------------------------------------------------
 clean :
