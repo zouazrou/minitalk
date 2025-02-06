@@ -6,7 +6,7 @@
 #    By: zouazrou <zouazrou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/18 09:45:34 by zouazrou          #+#    #+#              #
-#    Updated: 2025/02/06 09:46:53 by zouazrou         ###   ########.fr        #
+#    Updated: 2025/02/06 11:36:54 by zouazrou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,10 +46,10 @@ BO_SERVER = $(BC_SERVER:.c=.o)
 all : $(NAME)
 
 $(CLIENT) : $(OCLIENT)
-	$(CC) $(FLAGS) $^ -o $@
+	$(CC) $(CFLAGS) $^ -o $@
 
 $(SERVER) : $(OSERVER)
-	$(CC) $(FLAGS) $^ -o $@
+	$(CC) $(CFLAGS) $^ -o $@
 
 # -------------------------------------------------------------------
 

@@ -6,7 +6,7 @@
 /*   By: zouazrou <zouazrou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/18 09:45:18 by zouazrou          #+#    #+#             */
-/*   Updated: 2025/01/18 11:21:43 by zouazrou         ###   ########.fr       */
+/*   Updated: 2025/02/06 11:41:05 by zouazrou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,17 +79,11 @@ void	ft_putstr_fd(char *s, int fd)
 void	is_nb(char *arg)
 {
 	if (!*arg)
-	{
-		ft_putstr_fd("error : PID is empty !\n", 1);
-		exit(1);
-	}
+		exit((ft_putstr_fd("error : PID is empty !\n", 2), 1));
 	while (*arg)
 	{
 		if (*arg < '0' || *arg > '9')
-		{
-			ft_putstr_fd("error : PID is wrong !\n", 1);
-			exit(1);
-		}
+			exit((ft_putstr_fd("error : PID is wrong !\n", 2), 1));
 		arg++;
 	}
 }
